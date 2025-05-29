@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN_KEY, CODE_VERIFIER_KEY } from "../constants/storageKeys";
+import { Button } from "./ui/Button";
 
 export const SignOutButton = () => {
   const navigate = useNavigate();
@@ -7,8 +8,8 @@ export const SignOutButton = () => {
   const handleSignOut = () => {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     localStorage.removeItem(CODE_VERIFIER_KEY);
-    navigate("/");
+    navigate(0);
   };
 
-  return <button onClick={handleSignOut}>Sign Out</button>;
+  return <Button onClick={handleSignOut}>Sign Out</Button>;
 };
