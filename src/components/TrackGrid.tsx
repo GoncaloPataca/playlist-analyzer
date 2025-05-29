@@ -4,29 +4,43 @@ import {
   type ColDef,
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getPlaylistTracks } from "../api/spotifyApi";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 interface IRow {
-  make: string;
-  model: string;
-  price: number;
-  electric: boolean;
+  name: string;
+  artist: string;
+  album: string;
+  duration_ms: number;
 }
 
-export function TrackGrid() {
-  const [rowData, setRowData] = useState([
-    { make: "Tesla", model: "Model Y", price: 64950, electric: true },
-    { make: "Ford", model: "F-Series", price: 33850, electric: false },
-    { make: "Toyota", model: "Corolla", price: 29600, electric: false },
-  ]);
+export function TrackGrid({ playlistId }: { playlistId?: string }) {
+  const [rowData, setRowData] = useState<IRow[]>([]);
 
-  const [colDefs, setColDefs] = useState<ColDef<IRow>[]>([
-    { field: "make", sort: "asc" },
-    { field: "model" },
-    { field: "price" },
-    { field: "electric" },
+  useEffect(() => {
+    if (!playlistId) {
+      setRowData([]);
+      return;
+    }
+    getPlaylistTracks(playlistId).then((tracks) => {
+      setRowData(
+        tracks.map((item: any) => ({
+          name: item.track?.name,
+          artist: item.track?.artists?.map((a: any) => a.name).join(", "),
+          album: item.track?.album?.name,
+          duration_ms: item.track?.duration_ms,
+        }))
+      );
+    });
+  }, [playlistId]);
+
+  const [colDefs] = useState<ColDef<IRow>[]>([
+    { field: "name", headerName: "Track" },
+    { field: "artist", headerName: "Artist" },
+    { field: "album", headerName: "Album" },
+    { field: "duration_ms", headerName: "Duration (ms)" },
   ]);
 
   const defaultColDef: ColDef = {
