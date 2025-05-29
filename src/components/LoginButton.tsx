@@ -1,13 +1,10 @@
-import { CODE_VERIFIER_KEY } from "../constants/storageKeys";
-
-export const LoginButton = ({ children }: { children?: React.ReactNode }) => (
+export const LoginButton = () => (
   <button
-    className=" text-white px-4 py-2 rounded flex items-center gap-2 font-semibold transition"
     onClick={async () => {
       await redirectToSpotifyLogin();
     }}
   >
-    {children ?? "Login with Spotify"}
+    Login with Spotify
   </button>
 );
 
@@ -33,7 +30,7 @@ async function generateCodeChallenge(verifier: string): Promise<string> {
 async function redirectToSpotifyLogin() {
   const codeVerifier = generateCodeVerifier();
   const codeChallenge = await generateCodeChallenge(codeVerifier);
-  localStorage.setItem(CODE_VERIFIER_KEY, codeVerifier);
+  localStorage.setItem("code_verifier", codeVerifier);
 
   const params = new URLSearchParams({
     client_id: import.meta.env.VITE_SPOTIFY_CLIENT_ID,
@@ -41,7 +38,7 @@ async function redirectToSpotifyLogin() {
     redirect_uri: import.meta.env.VITE_SPOTIFY_REDIRECT_URI,
     code_challenge_method: "S256",
     code_challenge: codeChallenge,
-    scope: "user-read-private user-read-email playlist-read-private",
+    scope: "user-read-private user-read-email",
   });
 
   window.location.href = `https://accounts.spotify.com/authorize?${params.toString()}`;
