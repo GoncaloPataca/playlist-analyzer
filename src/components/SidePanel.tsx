@@ -1,5 +1,3 @@
-import { LoginButton } from "./LoginButton";
-
 export function SidePanel() {
   return (
     <aside className="w-64 bg-gray-200 p-4 border-r border-gray-300">
@@ -9,7 +7,6 @@ export function SidePanel() {
         <li className="hover:underline cursor-pointer">Menu Item 2</li>
         <li className="hover:underline cursor-pointer">Menu Item 3</li>
       </ul>
-      <LoginButton />
     </aside>
   );
 }
