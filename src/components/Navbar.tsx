@@ -38,8 +38,7 @@ export function Navbar() {
   }, [loggedIn]);
 
   return (
-    <nav className="flex items-center justify-between px-6 py-3 bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow">
-      {" "}
+    <nav className="flex items-center justify-between px-6 py-3 bg-gray-900 text-white shadow">
       <div className="flex items-center gap-3">
         <FaSpotify size={28} className="text-green-500" />
         <span className="text-xl font-bold">Playlist Analyzer</span>
@@ -60,7 +59,7 @@ export function Navbar() {
                 <img
                   src={profile.images[0].url}
                   alt={profile.display_name}
-                  className="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-700"
+                  className="w-8 h-8 rounded-full border border-gray-700"
                 />
               )}
               <span className="font-medium">{profile.display_name}</span>

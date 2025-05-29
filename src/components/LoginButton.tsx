@@ -1,14 +1,14 @@
 import { CODE_VERIFIER_KEY } from "../constants/storageKeys";
-import { Button } from "./ui/Button";
 
 export const LoginButton = ({ children }: { children?: React.ReactNode }) => (
-  <Button
+  <button
+    className=" text-white px-4 py-2 rounded flex items-center gap-2 font-semibold transition"
     onClick={async () => {
       await redirectToSpotifyLogin();
     }}
   >
     {children ?? "Login with Spotify"}
-  </Button>
+  </button>
 );
 
 function base64urlEncode(buffer: ArrayBuffer): string {
