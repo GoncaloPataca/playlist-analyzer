@@ -4,13 +4,13 @@ export function PlaylistDetails() {
     description: "A collection of laid-back tracks to help you relax.",
     creator: "DJ Relaxo",
     trackCount: 42,
-    // coverUrl: "https://via.placeholder.com/200",
+    coverUrl: "https://via.placeholder.com/200",
   };
 
   return (
     <section className="flex gap-6 items-start">
       <img
-        // src={playlist.coverUrl}
+        src={playlist.coverUrl}
         alt={playlist.title}
         className="w-48 h-48 rounded shadow-md object-cover"
       />

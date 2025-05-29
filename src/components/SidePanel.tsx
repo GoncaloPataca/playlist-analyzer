@@ -1,4 +1,3 @@
-import { DataButton } from "./DataButton";
 import { LoginButton } from "./LoginButton";
 
 export function SidePanel() {
@@ -11,7 +10,6 @@ export function SidePanel() {
         <li className="hover:underline cursor-pointer">Menu Item 3</li>
       </ul>
       <LoginButton />
-      <DataButton />
     </aside>
   );
 }

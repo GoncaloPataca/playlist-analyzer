@@ -1,12 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useSpotifyAuth } from "./hooks/useAuth";
 import { MainPage } from "./pages/MainPage";
-import { CallbackPage } from "./pages/CallbackPage";
+import { Callback } from "./pages/Callback";
 
 function App() {
+  useSpotifyAuth();
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/callback" element={<CallbackPage />} />
+        <Route path="/callback" element={<Callback />} />
         <Route path="/*" element={<MainPage />} />
       </Routes>
     </BrowserRouter>

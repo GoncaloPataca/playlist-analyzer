@@ -1,8 +1,11 @@
 import { PlaylistDetails } from "../components/PlaylistDetails";
 import { SidePanel } from "../components/SidePanel";
 import { TrackGrid } from "../components/TrackGrid";
+import { useSpotifyAuth } from "../hooks/useAuth";
 
 export function MainPage() {
+  useSpotifyAuth();
+
   return (
     <div className="flex h-screen w-screen">
       <SidePanel />
