@@ -1,35 +1,26 @@
-import { ACCESS_TOKEN_KEY } from "../constants/storageKeys";
+import SpotifyWebApi from "spotify-web-api-js";
+
+const spotifyApi = new SpotifyWebApi();
+
+export const setAccessToken = (token: string) => {
+  spotifyApi.setAccessToken(token);
+};
+
+export const getCurrentUser =
+  async (): Promise<SpotifyApi.CurrentUsersProfileResponse | null> => {
+    return await spotifyApi.getMe();
+  };
 
 export const getPlaylistTracks = async (playlistId: string) => {
-  const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-  const res = await fetch(
-    `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
-  const json = await res.json();
-  return json.items ?? [];
+  const data = await spotifyApi.getPlaylistTracks(playlistId);
+  return data.items ?? [];
 };
 
 export const getUserPlaylists = async () => {
-  const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-  const res = await fetch("https://api.spotify.com/v1/me/playlists", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  if (!res.ok) throw new Error("Failed to fetch playlists");
-  const json = await res.json();
-  return json.items ?? [];
+  const data = await spotifyApi.getUserPlaylists();
+  return data.items ?? [];
 };
 
 export const getPlaylistById = async (playlistId: string) => {
-  const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-  const res = await fetch(
-    `https://api.spotify.com/v1/playlists/${playlistId}`,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
-  if (!res.ok) throw new Error("Failed to fetch playlist");
-  return res.json();
+  return spotifyApi.getPlaylist(playlistId);
 };

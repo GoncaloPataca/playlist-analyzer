@@ -3,39 +3,39 @@ import { PlaylistDetails } from "../components/PlaylistDetails";
 import { SidePanel } from "../components/SidePanel";
 import { Navbar } from "../components/Navbar";
 import { PlaylistSearchForm } from "../components/PlaylistSearchForm";
-import { useLocation } from "react-router-dom";
-import { extractPlaylistId } from "../utils";
 import { getPlaylistById } from "../api/spotifyApi";
+import { useCurrentUser } from "../hooks/useCurrentUser";
 
 export function MainPage() {
-  const [selectedPlaylist, setSelectedPlaylist] = useState<any | null>(null);
-  const location = useLocation();
+  const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | null>(
+    null
+  );
+  const [selectedPlaylist, setSelectedPlaylist] =
+    useState<SpotifyApi.SinglePlaylistResponse | null>(null);
 
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const playlistUrl = params.get("playlistId");
-    if (playlistUrl) {
-      const playlistId = extractPlaylistId(playlistUrl);
-
-      if (playlistId) {
-        getPlaylistById(playlistId)
-          .then((playlist) => setSelectedPlaylist(playlist))
-          .catch(() => setSelectedPlaylist(null));
-      }
+    if (selectedPlaylistId) {
+      getPlaylistById(selectedPlaylistId)
+        .then((playlist) => setSelectedPlaylist(playlist))
+        .catch(() => setSelectedPlaylist(null));
     }
-  }, [location.search]);
+  }, [selectedPlaylistId]);
+
+  const user = useCurrentUser();
+
   return (
     <div className="flex flex-col h-screen w-screen">
-      <Navbar />
+      <Navbar user={user} />
       <div className="flex flex-1">
         <SidePanel
-          selectedPlaylist={selectedPlaylist}
-          setSelectedPlaylist={setSelectedPlaylist}
+          selectedPlaylistId={selectedPlaylistId}
+          setSelectedPlaylistId={setSelectedPlaylistId}
+          user={user}
         />
         <main id="main-content" className="flex-1 p-6 overflow-auto">
           <h1 className="sr-only">Spotify Playlist Analyzer</h1>{" "}
-          <PlaylistSearchForm onPlaylistFound={setSelectedPlaylist} />
-          <PlaylistDetails playlist={selectedPlaylist} />
+          <PlaylistSearchForm onPlaylistFound={setSelectedPlaylistId} />
+          <PlaylistDetails selectedPlaylist={selectedPlaylist} />
         </main>
       </div>
     </div>

@@ -48,7 +48,7 @@ const ALL_COLUMNS: ColDef<IRow>[] = [
   { field: "added_at", headerName: "Added At" },
 ];
 
-export function TrackGrid({ playlistId }: { playlistId?: string }) {
+export function TrackGrid({ playlistId }: Readonly<{ playlistId?: string }>) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [rowData, setRowData] = useState<IRow[]>([]);
   const [visibleCols, setVisibleCols] = useState<string[]>([
@@ -61,7 +61,7 @@ export function TrackGrid({ playlistId }: { playlistId?: string }) {
   ]);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<any>(null);
+  const gridRef = useRef<AgGridReact>(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -116,7 +116,7 @@ export function TrackGrid({ playlistId }: { playlistId?: string }) {
       if (gridRef.current && !newCols.includes(field)) {
         const api = gridRef.current.api;
         const currentFilters = api.getFilterModel();
-        if (currentFilters && currentFilters[field]) {
+        if (currentFilters?.[field]) {
           delete currentFilters[field];
           api.setFilterModel({ ...currentFilters });
         }

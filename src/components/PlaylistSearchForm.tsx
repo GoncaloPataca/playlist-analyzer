@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import { getPlaylistById } from "../api/spotifyApi";
 import { Button } from "./ui/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 type FormValues = {
   url: string;
@@ -9,23 +10,32 @@ type FormValues = {
 
 export function PlaylistSearchForm({
   onPlaylistFound,
-}: {
-  onPlaylistFound: (playlist: any) => void;
-}) {
+}: Readonly<{
+  onPlaylistFound: (playlistId: string) => void;
+}>) {
+  const [searchParams] = useSearchParams();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError: setFormError,
-    reset,
+    setValue,
   } = useForm<FormValues>();
 
   const [loading, setLoading] = useState(false);
 
   function extractPlaylistId(url: string): string | null {
-    const match = url.match(/playlist\/([a-zA-Z0-9]+)/);
+    const match = RegExp(/playlist\/([a-zA-Z0-9]+)/).exec(url);
     return match ? match[1] : null;
   }
+
+  useEffect(() => {
+    const queryFromUrl = searchParams.get("playlistId");
+    if (queryFromUrl !== null) {
+      setValue("url", queryFromUrl);
+    }
+  }, [searchParams, setValue]);
 
   const onSubmit = async (data: FormValues) => {
     const id = extractPlaylistId(data.url.trim());
@@ -41,12 +51,11 @@ export function PlaylistSearchForm({
     setLoading(true);
     try {
       const playlistData = await getPlaylistById(id);
-      onPlaylistFound(playlistData);
-      reset();
+      onPlaylistFound(playlistData.id);
     } catch (e) {
       setFormError("url", {
         type: "manual",
-        message: "Playlist not found or not accessible.",
+        message: "Playlist not found or not accessible." + e,
       });
     } finally {
       setLoading(false);

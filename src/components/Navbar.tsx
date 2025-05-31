@@ -1,41 +1,13 @@
-import { useEffect, useState } from "react";
 import { LoginButton } from "./LoginButton";
 import { SignOutButton } from "./SignOutButton";
-import { ACCESS_TOKEN_KEY } from "../constants/storageKeys";
 import { FaSpotify } from "react-icons/fa";
 
-export function Navbar() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [profile, setProfile] = useState<{
-    display_name: string;
-    images: { url: string }[];
-  } | null>(null);
-
-  useEffect(() => {
-    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-    setLoggedIn(!!token);
-
-    async function fetchProfile() {
-      if (!token) {
-        setProfile(null);
-        return;
-      }
-      try {
-        const res = await fetch("https://api.spotify.com/v1/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setProfile(data);
-        } else {
-          setProfile(null);
-        }
-      } catch {
-        setProfile(null);
-      }
-    }
-    fetchProfile();
-  }, [loggedIn]);
+export function Navbar({
+  user,
+}: Readonly<{
+  user: SpotifyApi.CurrentUsersProfileResponse | null;
+}>) {
+  const isLoggedIn = user !== null;
 
   return (
     <nav className="flex items-center justify-between px-6 py-3 bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow">
@@ -53,17 +25,17 @@ export function Navbar() {
         </a>
       </div>
       <div className="flex items-center gap-4">
-        {loggedIn && profile ? (
+        {isLoggedIn && user ? (
           <>
             <div className="flex items-center gap-2">
-              {profile.images?.[0]?.url && (
+              {user.images?.[0]?.url && (
                 <img
-                  src={profile.images[0].url}
-                  alt={profile.display_name}
+                  src={user.images[0].url}
+                  alt={user.display_name}
                   className="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-700"
                 />
               )}
-              <span className="font-medium">{profile.display_name}</span>
+              <span className="font-medium">{user.display_name}</span>
             </div>
             <SignOutButton />
           </>

@@ -1,22 +1,21 @@
 import { useState, useEffect } from "react";
-import { ACCESS_TOKEN_KEY } from "../constants/storageKeys";
 import { getUserPlaylists } from "../api/spotifyApi";
 import { PlaylistCard } from "./PlaylistCard";
 
 export function SidePanel({
-  selectedPlaylist,
-  setSelectedPlaylist,
-}: {
-  selectedPlaylist: any;
-  setSelectedPlaylist: (playlist: any) => void;
-}) {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [playlists, setPlaylists] = useState<any[]>([]);
+  selectedPlaylistId,
+  setSelectedPlaylistId,
+  user,
+}: Readonly<{
+  selectedPlaylistId: string | null;
+  setSelectedPlaylistId: (playlistId: string) => void;
+  user: SpotifyApi.CurrentUsersProfileResponse | null;
+}>) {
+  const loggedIn = user !== null;
+  const [playlists, setPlaylists] = useState<
+    SpotifyApi.PlaylistObjectSimplified[]
+  >([]);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoggedIn(!!localStorage.getItem(ACCESS_TOKEN_KEY));
-  }, []);
 
   useEffect(() => {
     if (loggedIn) {
@@ -40,12 +39,12 @@ export function SidePanel({
         {loggedIn && loading && <p>Loading playlists...</p>}
         {loggedIn && !loading && (
           <ul className="space-y-2">
-            {playlists.map((playlist) => (
-              <li key={playlist.id}>
+            {playlists.map((userPlaylist) => (
+              <li key={userPlaylist.id}>
                 <PlaylistCard
-                  playlist={playlist}
-                  selected={selectedPlaylist?.id === playlist.id}
-                  onSelect={setSelectedPlaylist}
+                  userPlaylist={userPlaylist}
+                  selectedPlaylistId={selectedPlaylistId}
+                  setSelectedPlaylistId={setSelectedPlaylistId}
                 />
               </li>
             ))}
