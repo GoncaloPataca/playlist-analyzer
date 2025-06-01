@@ -2,7 +2,9 @@ import { TrackGrid } from "./TrackGrid";
 
 export function PlaylistDetails({
   selectedPlaylist,
-}: Readonly<{ selectedPlaylist: SpotifyApi.SinglePlaylistResponse | null }>) {
+}: Readonly<{
+  selectedPlaylist: SpotifyApi.SinglePlaylistResponse | null | undefined;
+}>) {
   const formatNumber = (num: number | undefined) =>
     typeof num === "number" ? num.toLocaleString() : "?";
 

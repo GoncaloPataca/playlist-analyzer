@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
 import { getUserPlaylists } from "../api/spotifyApi";
 import { PlaylistCard } from "./PlaylistCard";
+import { useQuery } from "@tanstack/react-query";
 
 export function SidePanel({
   selectedPlaylistId,
@@ -12,20 +12,13 @@ export function SidePanel({
   user: SpotifyApi.CurrentUsersProfileResponse | null;
 }>) {
   const loggedIn = user !== null;
-  const [playlists, setPlaylists] = useState<
-    SpotifyApi.PlaylistObjectSimplified[]
-  >([]);
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (loggedIn) {
-      setLoading(true);
-      getUserPlaylists()
-        .then(setPlaylists)
-        .catch(() => setPlaylists([]))
-        .finally(() => setLoading(false));
-    }
-  }, [loggedIn]);
+  const { data: playlists = [], isLoading } = useQuery({
+    queryKey: ["userPlaylists", user?.id],
+    queryFn: getUserPlaylists,
+    enabled: loggedIn,
+    staleTime: 1000 * 60 * 5,
+  });
 
   return (
     <aside className="w-64 bg-gray-200 dark:bg-gray-800 p-4 border-r border-gray-300 dark:border-gray-700">
@@ -36,8 +29,8 @@ export function SidePanel({
             <li>Please log in to see your playlists.</li>
           </ul>
         )}
-        {loggedIn && loading && <p>Loading playlists...</p>}
-        {loggedIn && !loading && (
+        {loggedIn && isLoading && <p>Loading playlists...</p>}
+        {loggedIn && !isLoading && (
           <ul className="space-y-2">
             {playlists.map((userPlaylist) => (
               <li key={userPlaylist.id}>

@@ -7,6 +7,7 @@ import { AgGridReact } from "ag-grid-react";
 import { useState, useEffect, useRef } from "react";
 import { getPlaylistTracks } from "../api/spotifyApi";
 import { Button } from "./ui/Button";
+import { useQuery } from "@tanstack/react-query";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -49,8 +50,6 @@ const ALL_COLUMNS: ColDef<IRow>[] = [
 ];
 
 export function TrackGrid({ playlistId }: Readonly<{ playlistId?: string }>) {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [rowData, setRowData] = useState<IRow[]>([]);
   const [visibleCols, setVisibleCols] = useState<string[]>([
     "name",
     "artist",
@@ -63,29 +62,25 @@ export function TrackGrid({ playlistId }: Readonly<{ playlistId?: string }>) {
   const menuRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<AgGridReact>(null);
 
-  useEffect(() => {
-    setIsLoading(true);
-    if (!playlistId) {
-      setRowData([]);
-      setIsLoading(false);
-      return;
-    }
-    getPlaylistTracks(playlistId).then((tracks) => {
-      setRowData(
-        tracks.map((item: any) => ({
-          name: item.track?.name,
-          artist: item.track?.artists?.map((a: any) => a.name).join(", "),
-          album: item.track?.album?.name,
-          duration_ms: item.track?.duration_ms,
-          popularity: item.track?.popularity,
-          explicit: item.track?.explicit,
-          release_date: item.track?.album?.release_date,
-          added_at: item.added_at,
-        }))
-      );
-      setIsLoading(false);
-    });
-  }, [playlistId]);
+  const { data: rowData = [], isLoading } = useQuery({
+    queryKey: ["playlistTracks", playlistId],
+    queryFn: async () => {
+      if (!playlistId) return [];
+      const tracks = await getPlaylistTracks(playlistId);
+      return tracks.map((item) => ({
+        name: item.track?.name,
+        artist: item.track?.artists?.map((a) => a.name).join(", "),
+        album: item.track?.album?.name,
+        duration_ms: item.track?.duration_ms,
+        popularity: item.track?.popularity,
+        explicit: item.track?.explicit,
+        release_date: item.track?.album?.release_date,
+        added_at: item.added_at,
+      }));
+    },
+    enabled: !!playlistId,
+    staleTime: 1000 * 60 * 5,
+  });
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
