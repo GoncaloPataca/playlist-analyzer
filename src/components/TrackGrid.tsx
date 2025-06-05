@@ -4,10 +4,18 @@ import {
   type ColDef,
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { useState, useRef, useMemo, useCallback } from "react";
 import { getPlaylistTracks } from "../api/spotifyApi";
 import { Button } from "./ui/Button";
 import { useQuery } from "@tanstack/react-query";
+import {
+  PopoverPanel,
+  Popover,
+  PopoverButton,
+  Field,
+  Label,
+} from "@headlessui/react";
+import { Switch } from "./ui/Switch";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -61,8 +69,6 @@ export function TrackGrid({
     "popularity",
     "explicit",
   ]);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<AgGridReact>(null);
   const [isFilterActive, setIsFilterActive] = useState(false);
 
@@ -83,24 +89,7 @@ export function TrackGrid({
       }));
     },
     enabled: !!playlistId,
-    staleTime: 1000 * 60 * 5,
   });
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMenuOpen(false);
-      }
-    }
-    if (menuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [menuOpen]);
 
   const colDefs = ALL_COLUMNS.filter((col) =>
     visibleCols.includes(col.field as string)
@@ -151,33 +140,28 @@ export function TrackGrid({
     <div className="w-full">
       <div className="mb-2 relative">
         <div className="flex items-center gap-3">
-          <Button onClick={() => setMenuOpen((open) => !open)}>
-            Select Columns
-          </Button>
+          <Popover>
+            <PopoverButton as={Button}>Select Columns</PopoverButton>
+            <PopoverPanel
+              className="absolute z-10  bg-white border border-gray-300 rounded-lg shadow-md p-2 flex flex-col gap-2 min-w-[200px] ring-1 ring-black ring-opacity-5 focus:outline-none
+  "
+              anchor="bottom start"
+            >
+              {ALL_COLUMNS.map((col) => (
+                <Field key={col.field} className={"flex justify-between gap-6"}>
+                  <Label>{col.headerName}</Label>
+                  <Switch
+                    checked={visibleCols.includes(col.field as string)}
+                    onChange={() => handleToggleCol(col.field as string)}
+                  />
+                </Field>
+              ))}
+            </PopoverPanel>
+          </Popover>
           <Button onClick={handleClearFilters} disabled={!isFilterActive}>
             Clear Filters
           </Button>
         </div>
-        {menuOpen && (
-          <div
-            ref={menuRef}
-            className="absolute z-10 mt-2 left-0 bg-white border rounded shadow-lg p-3 flex flex-col gap-1"
-          >
-            {ALL_COLUMNS.map((col) => (
-              <label
-                key={col.field}
-                className="flex items-center gap-2 text-sm"
-              >
-                <input
-                  type="checkbox"
-                  checked={visibleCols.includes(col.field as string)}
-                  onChange={() => handleToggleCol(col.field as string)}
-                />
-                {col.headerName}
-              </label>
-            ))}
-          </div>
-        )}
       </div>
       <div style={{ height: 500 }}>
         <AgGridReact

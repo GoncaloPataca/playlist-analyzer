@@ -19,7 +19,6 @@ export function MainPage() {
         ? getPlaylistById(selectedPlaylistId)
         : Promise.resolve(null),
     enabled: !!selectedPlaylistId,
-    staleTime: 0,
   });
 
   const user = useCurrentUser();
