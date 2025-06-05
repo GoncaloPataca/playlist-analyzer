@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 
 interface PlaylistCardProps {
   userPlaylist: SpotifyApi.PlaylistObjectSimplified;
@@ -12,16 +11,8 @@ export const PlaylistCard: React.FC<PlaylistCardProps> = ({
   selectedPlaylistId,
   setSelectedPlaylistId,
 }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const isSelected = selectedPlaylistId === userPlaylist.id;
 
-  const handleSelect = () => {
-    setSelectedPlaylistId(userPlaylist.id);
-    const params = new URLSearchParams(location.search);
-    params.set("playlistId", userPlaylist.external_urls?.spotify ?? "");
-    navigate({ search: params.toString() }, { replace: true });
-  };
   return (
     <button
       aria-pressed={isSelected}
@@ -32,7 +23,7 @@ export const PlaylistCard: React.FC<PlaylistCardProps> = ({
           : ""
       }
     `}
-      onClick={handleSelect}
+      onClick={() => setSelectedPlaylistId(userPlaylist.id)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ")
           setSelectedPlaylistId(userPlaylist.id);

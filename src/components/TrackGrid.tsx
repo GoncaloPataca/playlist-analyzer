@@ -4,7 +4,7 @@ import {
   type ColDef,
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { getPlaylistTracks } from "../api/spotifyApi";
 import { Button } from "./ui/Button";
 import { useQuery } from "@tanstack/react-query";
@@ -49,7 +49,10 @@ const ALL_COLUMNS: ColDef<IRow>[] = [
   { field: "added_at", headerName: "Added At" },
 ];
 
-export function TrackGrid({ playlistId }: Readonly<{ playlistId?: string }>) {
+export function TrackGrid({
+  playlistId,
+  isFetching,
+}: Readonly<{ playlistId?: string; isFetching: boolean }>) {
   const [visibleCols, setVisibleCols] = useState<string[]>([
     "name",
     "artist",
@@ -61,6 +64,7 @@ export function TrackGrid({ playlistId }: Readonly<{ playlistId?: string }>) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<AgGridReact>(null);
+  const [isFilterActive, setIsFilterActive] = useState(false);
 
   const { data: rowData = [], isLoading } = useQuery({
     queryKey: ["playlistTracks", playlistId],
@@ -127,14 +131,32 @@ export function TrackGrid({ playlistId }: Readonly<{ playlistId?: string }>) {
     }
   };
 
+  const defaultColDef = useMemo<ColDef>(() => {
+    return {
+      flex: 1,
+      filter: true,
+      floatingFilter: true,
+    };
+  }, []);
+
+  const onFilterChanged = useCallback(() => {
+    const api = gridRef.current?.api;
+    if (api) {
+      console.log(api.isAnyFilterPresent());
+      setIsFilterActive(api.isAnyFilterPresent());
+    }
+  }, []);
+
   return (
-    <div>
+    <div className="w-full">
       <div className="mb-2 relative">
         <div className="flex items-center gap-3">
           <Button onClick={() => setMenuOpen((open) => !open)}>
             Select Columns
           </Button>
-          <Button onClick={handleClearFilters}>Clear Filters</Button>
+          <Button onClick={handleClearFilters} disabled={!isFilterActive}>
+            Clear Filters
+          </Button>
         </div>
         {menuOpen && (
           <div
@@ -162,12 +184,9 @@ export function TrackGrid({ playlistId }: Readonly<{ playlistId?: string }>) {
           ref={gridRef}
           rowData={rowData}
           columnDefs={colDefs}
-          defaultColDef={{
-            flex: 1,
-            filter: true,
-            floatingFilter: true,
-          }}
-          loading={isLoading}
+          defaultColDef={defaultColDef}
+          loading={isLoading || isFetching}
+          onFilterChanged={onFilterChanged}
         />
       </div>
     </div>

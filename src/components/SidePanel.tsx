@@ -29,7 +29,21 @@ export function SidePanel({
             <li>Please log in to see your playlists.</li>
           </ul>
         )}
-        {loggedIn && isLoading && <p>Loading playlists...</p>}
+        {loggedIn && isLoading && (
+          <ul className="space-y-2 animate-pulse">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <li key={i}>
+                <div className="flex items-center gap-3 px-2 py-1">
+                  <div className="w-10 h-10 rounded bg-gray-300 dark:bg-gray-700" />
+                  <div className="flex flex-col flex-1">
+                    <div className="h-4 w-3/4 bg-gray-300 dark:bg-gray-700 rounded mb-1" />
+                    <div className="h-3 w-1/2 bg-gray-200 dark:bg-gray-600 rounded" />
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
         {loggedIn && !isLoading && (
           <ul className="space-y-2">
             {playlists.map((userPlaylist) => (

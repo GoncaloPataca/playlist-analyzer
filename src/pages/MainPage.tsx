@@ -12,14 +12,14 @@ export function MainPage() {
     null
   );
 
-  const { data: selectedPlaylist } = useQuery({
+  const { data: selectedPlaylist, isFetching } = useQuery({
     queryKey: ["playlist", selectedPlaylistId],
     queryFn: () =>
       selectedPlaylistId
         ? getPlaylistById(selectedPlaylistId)
         : Promise.resolve(null),
     enabled: !!selectedPlaylistId,
-    staleTime: 1000 * 60 * 5,
+    staleTime: 0,
   });
 
   const user = useCurrentUser();
@@ -35,8 +35,15 @@ export function MainPage() {
         />
         <main id="main-content" className="flex-1 p-6 overflow-auto">
           <h1 className="sr-only">Spotify Playlist Analyzer</h1>{" "}
-          <PlaylistSearchForm onPlaylistFound={setSelectedPlaylistId} />
-          <PlaylistDetails selectedPlaylist={selectedPlaylist} />
+          <PlaylistSearchForm
+            user={user}
+            setSelectedPlaylistId={setSelectedPlaylistId}
+          />
+          <PlaylistDetails
+            selectedPlaylistId={selectedPlaylistId}
+            selectedPlaylist={selectedPlaylist}
+            isFetching={isFetching}
+          />
         </main>
       </div>
     </div>

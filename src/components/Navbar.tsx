@@ -18,7 +18,7 @@ export function Navbar({
       </div>
       <div>
         <a
-          href="#main-content"
+          href="#playlist-search-input"
           className="sr-only focus:not-sr-only absolute left-4 top-4 z-50 bg-white text-black px-4 py-2 rounded shadow"
         >
           Skip to main content
