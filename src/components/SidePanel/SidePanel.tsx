@@ -1,4 +1,4 @@
-import { getUserPlaylists } from "../api/spotifyApi";
+import { getUserPlaylists } from "../../api/spotifyApi";
 import { PlaylistCard } from "./PlaylistCard";
 import { useQuery } from "@tanstack/react-query";
 

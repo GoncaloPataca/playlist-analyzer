@@ -5,8 +5,8 @@ import {
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import { useState, useRef, useMemo, useCallback } from "react";
-import { getPlaylistTracks } from "../api/spotifyApi";
-import { Button } from "./ui/Button";
+import { getPlaylistTracks } from "../../api/spotifyApi";
+import { Button } from "../ui/Button";
 import { useQuery } from "@tanstack/react-query";
 import {
   PopoverPanel,
@@ -15,7 +15,7 @@ import {
   Field,
   Label,
 } from "@headlessui/react";
-import { Switch } from "./ui/Switch";
+import { Switch } from "../ui/Switch";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 

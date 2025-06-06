@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { getPlaylistById } from "../api/spotifyApi";
-import { Button } from "./ui/Button";
+import { getPlaylistById } from "../../api/spotifyApi";
+import { Button } from "../ui/Button";
 import { useState } from "react";
 
 type FormValues = {
