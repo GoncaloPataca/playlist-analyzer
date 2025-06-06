@@ -82,22 +82,6 @@ export function PlaylistDetailsHeader({
                     </span>
                   </div>
                 )}
-                {selectedPlaylist.primary_color && (
-                  <div>
-                    <span className="font-semibold">Primary Color:</span>{" "}
-                    <span
-                      className="inline-block w-4 h-4 rounded-full align-middle mr-1"
-                      style={{ background: selectedPlaylist.primary_color }}
-                    ></span>
-                    <span>{selectedPlaylist.primary_color}</span>
-                  </div>
-                )}
-                {selectedPlaylist.type && (
-                  <div>
-                    <span className="font-semibold">Type:</span>{" "}
-                    {selectedPlaylist.type}
-                  </div>
-                )}
               </div>
               <a
                 href={selectedPlaylist.external_urls?.spotify}

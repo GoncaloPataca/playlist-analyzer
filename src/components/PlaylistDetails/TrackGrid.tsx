@@ -53,7 +53,6 @@ const ALL_COLUMNS: ColDef<IRow>[] = [
     headerName: "Explicit",
     valueFormatter: (params) => (params.value ? "Yes" : "No"),
   },
-  { field: "release_date", headerName: "Release Date" },
   { field: "added_at", headerName: "Added At" },
 ];
 
@@ -77,16 +76,20 @@ export function TrackGrid({
     queryFn: async () => {
       if (!playlistId) return [];
       const tracks = await getPlaylistTracks(playlistId);
-      return tracks.map((item) => ({
-        name: item.track?.name,
-        artist: item.track?.artists?.map((a) => a.name).join(", "),
-        album: item.track?.album?.name,
-        duration_ms: item.track?.duration_ms,
-        popularity: item.track?.popularity,
-        explicit: item.track?.explicit,
-        release_date: item.track?.album?.release_date,
-        added_at: item.added_at,
-      }));
+      return tracks
+        .filter((item) => "album" in item.track)
+        .map((item) => {
+          const track = item.track as SpotifyApi.TrackObjectFull;
+          return {
+            name: track.name,
+            artist: track.artists?.map((a) => a.name).join(", "),
+            album: track.album?.name,
+            duration_ms: track.duration_ms,
+            popularity: track.popularity,
+            explicit: track.explicit,
+            added_at: item.added_at,
+          };
+        });
     },
     enabled: !!playlistId,
   });
