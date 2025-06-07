@@ -75,11 +75,11 @@ export function TrackGrid({
     queryKey: ["playlistTracks", playlistId],
     queryFn: async () => {
       if (!playlistId) return [];
-      const tracks = await getPlaylistTracks(playlistId);
-      return tracks
-        .filter((item) => "album" in item.track)
-        .map((item) => {
-          const track = item.track as SpotifyApi.TrackObjectFull;
+      const playlistTracks = await getPlaylistTracks(playlistId);
+      return playlistTracks
+        .filter((playlistTrackItem) => playlistTrackItem.track)
+        .map((playlistTrackItem) => {
+          const track = playlistTrackItem.track as SpotifyApi.TrackObjectFull;
           return {
             name: track.name,
             artist: track.artists?.map((a) => a.name).join(", "),
@@ -87,7 +87,7 @@ export function TrackGrid({
             duration_ms: track.duration_ms,
             popularity: track.popularity,
             explicit: track.explicit,
-            added_at: item.added_at,
+            added_at: playlistTrackItem.added_at,
           };
         });
     },

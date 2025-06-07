@@ -14,7 +14,7 @@ export function PlaylistDetailsHeader({
     <div className="w-full">
       {!selectedPlaylistId && (
         <div className="text-gray-500 italic">
-          Select a selectedPlaylist to see details.
+          Select a playlist to see details.
         </div>
       )}
       {isFetching && (
