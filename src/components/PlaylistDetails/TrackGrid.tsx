@@ -16,6 +16,7 @@ import {
   Label,
 } from "@headlessui/react";
 import { Switch } from "../ui/Switch";
+import { TRACK_COLS } from "../../constants/constants";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -31,11 +32,11 @@ interface IRow {
 }
 
 const ALL_COLUMNS: ColDef<IRow>[] = [
-  { field: "name", headerName: "Track" },
-  { field: "artist", headerName: "Artist" },
-  { field: "album", headerName: "Album" },
+  { field: TRACK_COLS.NAME, headerName: "Track" },
+  { field: TRACK_COLS.ARTIST, headerName: "Artist" },
+  { field: TRACK_COLS.ALBUM, headerName: "Album" },
   {
-    field: "duration_ms",
+    field: TRACK_COLS.DURATION_MS,
     headerName: "Duration",
     valueFormatter: (params) => {
       const ms = params.value;
@@ -47,13 +48,13 @@ const ALL_COLUMNS: ColDef<IRow>[] = [
       return `${min}:${sec}`;
     },
   },
-  { field: "popularity", headerName: "Popularity" },
+  { field: TRACK_COLS.POPULARITY, headerName: "Popularity" },
   {
-    field: "explicit",
+    field: TRACK_COLS.EXPLICIT,
     headerName: "Explicit",
     valueFormatter: (params) => (params.value ? "Yes" : "No"),
   },
-  { field: "added_at", headerName: "Added At" },
+  { field: TRACK_COLS.ADDED_AT, headerName: "Added At" },
 ];
 
 export function TrackGrid({
@@ -61,12 +62,12 @@ export function TrackGrid({
   isFetching,
 }: Readonly<{ playlistId?: string; isFetching: boolean }>) {
   const [visibleCols, setVisibleCols] = useState<string[]>([
-    "name",
-    "artist",
-    "album",
-    "duration_ms",
-    "popularity",
-    "explicit",
+    TRACK_COLS.NAME,
+    TRACK_COLS.ARTIST,
+    TRACK_COLS.ALBUM,
+    TRACK_COLS.DURATION_MS,
+    TRACK_COLS.POPULARITY,
+    TRACK_COLS.EXPLICIT,
   ]);
   const gridRef = useRef<AgGridReact>(null);
   const [isFilterActive, setIsFilterActive] = useState(false);
