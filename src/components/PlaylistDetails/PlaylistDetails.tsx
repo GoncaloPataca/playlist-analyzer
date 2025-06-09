@@ -1,5 +1,5 @@
-import { PlaylistDetailsHeader } from "./PlaylistDetailsHeader";
-import { TrackGrid } from "./TrackGrid";
+import { PlaylistDetailsHeader } from "@/components/PlaylistDetails/PlaylistDetailsHeader";
+import { TrackGrid } from "@/components/PlaylistDetails/TrackGrid";
 
 export function PlaylistDetails({
   selectedPlaylistId,

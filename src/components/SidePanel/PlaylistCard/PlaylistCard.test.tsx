@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { renderWithProvider } from "../../../utils/test-utils/test-utils";
-import { PlaylistCard } from "./PlaylistCard";
-import { createPlaylistMock } from "../../../utils/test-utils/mocks";
+import { renderWithProvider } from "@/utils/test-utils/test-utils";
+import { PlaylistCard } from "@/components/SidePanel/PlaylistCard/PlaylistCard";
+import { createPlaylistMock } from "@/utils/test-utils/mocks";
 import { userEvent } from "@vitest/browser/context";
 
 describe("PlaylistCard", () => {

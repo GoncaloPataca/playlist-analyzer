@@ -5,8 +5,8 @@ import {
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import { useState, useRef, useMemo, useCallback } from "react";
-import { getPlaylistTracks } from "../../api/spotifyApi";
-import { Button } from "../ui/Button/Button";
+import { getPlaylistTracks } from "@/api/spotifyApi";
+import { Button } from "@/components/ui/Button/Button";
 import { useQuery } from "@tanstack/react-query";
 import {
   PopoverPanel,

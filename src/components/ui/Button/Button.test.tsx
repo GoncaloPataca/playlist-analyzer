@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
 import { userEvent } from "@vitest/browser/context";
 import { describe, it, expect, vi } from "vitest";
-import { Button } from "./Button";
-import { renderWithProvider } from "../../../utils/test-utils/test-utils";
+import { Button } from "@/components/ui/Button/Button";
+import { renderWithProvider } from "@/utils/test-utils/test-utils";
 
 describe("Button", () => {
   it("renders children", () => {

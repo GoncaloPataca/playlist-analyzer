@@ -1,5 +1,5 @@
-import { CODE_VERIFIER_KEY } from "../../constants/storageKeys";
-import { Button } from "../ui/Button/Button";
+import { CODE_VERIFIER_KEY } from "@/constants/storageKeys";
+import { Button } from "@/components/ui/Button/Button";
 
 export const LoginButton = ({ children }: { children?: React.ReactNode }) => (
   <Button

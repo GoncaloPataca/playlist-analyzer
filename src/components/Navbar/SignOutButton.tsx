@@ -1,9 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import {
-  ACCESS_TOKEN_KEY,
-  CODE_VERIFIER_KEY,
-} from "../../constants/storageKeys";
-import { Button } from "../ui/Button/Button";
+import { ACCESS_TOKEN_KEY, CODE_VERIFIER_KEY } from "@/constants/storageKeys";
+import { Button } from "@/components/ui/Button/Button";
 
 export const SignOutButton = () => {
   const navigate = useNavigate();

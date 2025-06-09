@@ -1,5 +1,5 @@
-import { LoginButton } from "./LoginButton";
-import { SignOutButton } from "./SignOutButton";
+import { LoginButton } from "@/components/Navbar/LoginButton";
+import { SignOutButton } from "@/components/Navbar/SignOutButton";
 import { FaSpotify } from "react-icons/fa";
 
 export function Navbar({

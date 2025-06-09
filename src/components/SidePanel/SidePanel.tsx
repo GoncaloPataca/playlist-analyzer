@@ -1,5 +1,5 @@
-import { getUserPlaylists } from "../../api/spotifyApi";
-import { PlaylistCard } from "./PlaylistCard/PlaylistCard";
+import { getUserPlaylists } from "@/api/spotifyApi";
+import { PlaylistCard } from "@/components/SidePanel/PlaylistCard/PlaylistCard";
 import { useQuery } from "@tanstack/react-query";
 
 export function SidePanel({

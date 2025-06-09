@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { SidePanel } from "./SidePanel";
-import { renderWithProvider } from "../../utils/test-utils/test-utils";
-import { createPlaylistMock, user } from "../../utils/test-utils/mocks";
+import { SidePanel } from "@/components/SidePanel/SidePanel";
+import { renderWithProvider } from "@/utils/test-utils/test-utils";
+import { createPlaylistMock, user } from "@/utils/test-utils/mocks";
 
-vi.mock("./PlaylistCard/PlaylistCard", () => ({
+vi.mock(import("@/components/SidePanel/PlaylistCard/PlaylistCard"), () => ({
   PlaylistCard: ({ userPlaylist }: { userPlaylist: { id: string } }) => (
     <button data-testid={`playlist-card-${userPlaylist.id}`}>
       Playlist {userPlaylist.id}

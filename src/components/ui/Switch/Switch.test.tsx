@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
 import { userEvent } from "@vitest/browser/context";
 import { describe, it, expect, vi } from "vitest";
-import { Switch } from "./Switch";
-import { renderWithProvider } from "../../../utils/test-utils/test-utils";
+import { Switch } from "@/components/ui/Switch/Switch";
+import { renderWithProvider } from "@/utils/test-utils/test-utils";
 
 describe("Switch", () => {
   it("renders as checked when checked prop is true", () => {
