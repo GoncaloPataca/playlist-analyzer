@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { setAccessToken } from "../api/spotifyApi";
+import { setAccessToken } from "@/api/spotifyApi";
 
 async function exchangeSpotifyToken(code: string, verifier: string) {
   const response = await fetch("https://accounts.spotify.com/api/token", {

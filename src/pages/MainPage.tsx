@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { PlaylistDetails } from "../components/PlaylistDetails/PlaylistDetails";
-import { SidePanel } from "../components/SidePanel/SidePanel";
-import { Navbar } from "../components/Navbar/Navbar";
-import { PlaylistSearchForm } from "../components/PlaylistDetails/PlaylistSearchForm";
-import { getPlaylistById } from "../api/spotifyApi";
-import { useCurrentUser } from "../hooks/useCurrentUser";
+import { PlaylistDetails } from "@/components/PlaylistDetails/PlaylistDetails";
+import { SidePanel } from "@/components/SidePanel/SidePanel";
+import { Navbar } from "@/components/Navbar/Navbar";
+import { PlaylistSearchForm } from "@/components/PlaylistDetails/PlaylistSearchForm";
+import { getPlaylistById } from "@/api/spotifyApi";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useQuery } from "@tanstack/react-query";
 
 export function MainPage() {

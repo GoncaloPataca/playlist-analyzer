@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCurrentUser } from "../api/spotifyApi";
+import { getCurrentUser } from "@/api/spotifyApi";
 
 export const useCurrentUser = () => {
   const [user, setUser] =

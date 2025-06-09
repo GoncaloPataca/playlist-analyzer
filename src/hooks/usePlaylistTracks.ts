@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { getPlaylistTracks } from "../api/spotifyApi";
+import { getPlaylistTracks } from "@/api/spotifyApi";
 
 export const usePlaylistTracks = () => {
   const [tracks, setTracks] = useState<SpotifyApi.PlaylistTrackObject[]>([]);

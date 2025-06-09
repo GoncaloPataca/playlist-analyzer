@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useSpotifyAuth } from "../hooks/useSpotifyAuth";
+import { useSpotifyAuth } from "@/hooks/useSpotifyAuth";
 
 export function CallbackPage() {
   const mutation = useSpotifyAuth();
