@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test:browser": "vitest",
     "test:browser:coverage": "vitest --coverage",
-    "test:browser:headless": "vitest --browser.headless=true"
+    "test:browser:headless": "vitest --browser.headless=true",
+    "test:browser:headless:coverage": "vitest --browser.headless=true --coverage"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
