@@ -1,5 +1,5 @@
 import { getUserPlaylists } from "../../api/spotifyApi";
-import { PlaylistCard } from "./PlaylistCard";
+import { PlaylistCard } from "./PlaylistCard/PlaylistCard";
 import { useQuery } from "@tanstack/react-query";
 
 export function SidePanel({
@@ -32,7 +32,7 @@ export function SidePanel({
         {loggedIn && isLoading && (
           <ul className="space-y-2 animate-pulse">
             {Array.from({ length: 6 }).map((_, i) => (
-              <li key={i}>
+              <li key={`${selectedPlaylistId}-${i}`}>
                 <div className="flex items-center gap-3 px-2 py-1">
                   <div className="w-10 h-10 rounded bg-gray-300 dark:bg-gray-700" />
                   <div className="flex flex-col flex-1">

@@ -24,10 +24,6 @@ export const PlaylistCard: React.FC<PlaylistCardProps> = ({
       }
     `}
       onClick={() => setSelectedPlaylistId(userPlaylist.id)}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ")
-          setSelectedPlaylistId(userPlaylist.id);
-      }}
     >
       <img
         src={userPlaylist.images?.[0]?.url}
@@ -37,7 +33,7 @@ export const PlaylistCard: React.FC<PlaylistCardProps> = ({
       <div className="flex flex-col">
         <span>{userPlaylist.name}</span>
         <span className="text-xs text-gray-600">
-          {userPlaylist.tracks?.total ?? 0} songs • by{" "}
+          {userPlaylist.tracks?.total} songs • by{" "}
           {userPlaylist.owner?.display_name}
         </span>
       </div>

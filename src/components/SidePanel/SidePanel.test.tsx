@@ -3,7 +3,7 @@ import { SidePanel } from "./SidePanel";
 import { renderWithProvider } from "../../utils/test-utils/test-utils";
 import { createPlaylistMock, user } from "../../utils/test-utils/mocks";
 
-vi.mock("./PlaylistCard", () => ({
+vi.mock("./PlaylistCard/PlaylistCard", () => ({
   PlaylistCard: ({ userPlaylist }: { userPlaylist: { id: string } }) => (
     <button data-testid={`playlist-card-${userPlaylist.id}`}>
       Playlist {userPlaylist.id}
