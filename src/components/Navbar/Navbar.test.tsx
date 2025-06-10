@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { Navbar } from "./Navbar";
-import { userMock } from "@/utils/test-utils/mocks";
+import { createUserMock } from "@/utils/test-utils/mocks";
 import { renderWithProvider } from "@/utils/test-utils/test-utils";
 
 vi.mock(import("@/components/Navbar/LoginButton/LoginButton"), () => ({
@@ -12,6 +12,8 @@ vi.mock(import("@/components/Navbar/SignOutButton/SignOutButton"), () => ({
 }));
 
 describe("Navbar", () => {
+  const userMock = createUserMock();
+
   beforeEach(() => {
     vi.clearAllMocks();
   });

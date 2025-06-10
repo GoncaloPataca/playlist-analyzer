@@ -2,10 +2,10 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { userEvent } from "@vitest/browser/context";
 import { renderWithProvider } from "@/utils/test-utils/test-utils";
 import { PlaylistCard } from "@/components/SidePanel/PlaylistCard/PlaylistCard";
-import { createPlaylistMock } from "@/utils/test-utils/mocks";
+import { createSimplifiedPlaylistMock } from "@/utils/test-utils/mocks";
 
 describe("PlaylistCard", () => {
-  const playlist = createPlaylistMock({ id: "1", name: "My Playlist" });
+  const playlist = createSimplifiedPlaylistMock();
   const setSelectedPlaylistId = vi.fn();
 
   beforeEach(() => {

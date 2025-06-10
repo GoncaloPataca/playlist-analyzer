@@ -1,7 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { SidePanel } from "@/components/SidePanel/SidePanel";
 import { renderWithProvider } from "@/utils/test-utils/test-utils";
-import { createPlaylistMock, userMock } from "@/utils/test-utils/mocks";
+import {
+  createSimplifiedPlaylistMock,
+  createUserMock,
+} from "@/utils/test-utils/mocks";
 
 vi.mock(import("@/components/SidePanel/PlaylistCard/PlaylistCard"), () => ({
   PlaylistCard: ({ userPlaylist }: { userPlaylist: { id: string } }) => (
@@ -41,6 +44,7 @@ vi.mock("spotify-web-api-js", () => {
 });
 
 describe("SidePanel", () => {
+  const userMock = createUserMock();
   const setSelectedPlaylistId = vi.fn();
 
   beforeEach(() => {
@@ -101,8 +105,8 @@ describe("SidePanel", () => {
   it("should show loaded playlists when user is logged in and playlists are not loading anymore", async () => {
     const playlists = {
       items: [
-        createPlaylistMock({ id: "1", name: "Playlist 1" }),
-        createPlaylistMock({ id: "2", name: "Playlist 2" }),
+        createSimplifiedPlaylistMock({ id: "1", name: "Playlist 1" }),
+        createSimplifiedPlaylistMock({ id: "2", name: "Playlist 2" }),
       ],
     };
     mocks.getUserPlaylists.mockResolvedValue(playlists);
