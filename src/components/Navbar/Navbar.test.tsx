@@ -3,13 +3,11 @@ import { Navbar } from "./Navbar";
 import { userMock } from "@/utils/test-utils/mocks";
 import { renderWithProvider } from "@/utils/test-utils/test-utils";
 
-vi.mock("@/components/Navbar/LoginButton", () => ({
-  LoginButton: ({ children }: { children: React.ReactNode }) => (
-    <button data-testid="login-button">{children}</button>
-  ),
+vi.mock(import("@/components/Navbar/LoginButton/LoginButton"), () => ({
+  LoginButton: () => <button data-testid="login-button">Login</button>,
 }));
 
-vi.mock("@/components/Navbar/SignOutButton", () => ({
+vi.mock(import("@/components/Navbar/SignOutButton"), () => ({
   SignOutButton: () => <button data-testid="signout-button">Sign Out</button>,
 }));
 
@@ -33,12 +31,9 @@ describe("Navbar", () => {
   });
 
   it("renders a login button if user is logged off", () => {
-    const { getByTestId, getByText } = renderWithProvider(
-      <Navbar user={null} />
-    );
+    const { getByTestId } = renderWithProvider(<Navbar user={null} />);
 
     expect(getByTestId("login-button")).toBeInTheDocument();
-    expect(getByText(/login with spotify/i)).toBeInTheDocument();
   });
 
   it("renders a sign out button if user is logged in", () => {

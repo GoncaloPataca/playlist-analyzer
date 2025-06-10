@@ -1,5 +1,5 @@
 import { FaSpotify } from "react-icons/fa";
-import { LoginButton } from "@/components/Navbar/LoginButton";
+import { LoginButton } from "@/components/Navbar/LoginButton/LoginButton";
 import { SignOutButton } from "@/components/Navbar/SignOutButton";
 
 export function Navbar({
@@ -40,12 +40,7 @@ export function Navbar({
             <SignOutButton />
           </>
         ) : (
-          <LoginButton>
-            <span className="flex items-center gap-2">
-              <FaSpotify size={22} className="text-green-500" />
-              <span>Login with Spotify</span>
-            </span>
-          </LoginButton>
+          <LoginButton />
         )}
       </div>
     </nav>
