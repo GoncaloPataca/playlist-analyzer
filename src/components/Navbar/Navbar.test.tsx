@@ -7,7 +7,7 @@ vi.mock(import("@/components/Navbar/LoginButton/LoginButton"), () => ({
   LoginButton: () => <button data-testid="login-button">Login</button>,
 }));
 
-vi.mock(import("@/components/Navbar/SignOutButton"), () => ({
+vi.mock(import("@/components/Navbar/SignOutButton/SignOutButton"), () => ({
   SignOutButton: () => <button data-testid="signout-button">Sign Out</button>,
 }));
 
