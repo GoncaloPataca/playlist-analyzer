@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { SidePanel } from "@/components/SidePanel/SidePanel";
 import { renderWithProvider } from "@/utils/test-utils/test-utils";
-import { createPlaylistMock, user } from "@/utils/test-utils/mocks";
+import { createPlaylistMock, userMock } from "@/utils/test-utils/mocks";
 
 vi.mock(import("@/components/SidePanel/PlaylistCard/PlaylistCard"), () => ({
   PlaylistCard: ({ userPlaylist }: { userPlaylist: { id: string } }) => (
@@ -78,7 +78,7 @@ describe("SidePanel", () => {
       <SidePanel
         selectedPlaylistId={null}
         setSelectedPlaylistId={setSelectedPlaylistId}
-        user={user}
+        user={userMock}
       />
     );
 
@@ -92,7 +92,7 @@ describe("SidePanel", () => {
       <SidePanel
         selectedPlaylistId={null}
         setSelectedPlaylistId={setSelectedPlaylistId}
-        user={user}
+        user={userMock}
       />
     );
     expect(mocks.getUserPlaylists).toHaveBeenCalled();
@@ -111,7 +111,7 @@ describe("SidePanel", () => {
       <SidePanel
         selectedPlaylistId={null}
         setSelectedPlaylistId={setSelectedPlaylistId}
-        user={user}
+        user={userMock}
       />
     );
 

@@ -1,6 +1,6 @@
 import { merge, cloneDeep } from "lodash";
 
-export const user: SpotifyApi.CurrentUsersProfileResponse = {
+export const userMock: SpotifyApi.CurrentUsersProfileResponse = {
   id: "user1",
   display_name: "Test User",
   birthdate: "1990-01-01",
@@ -11,6 +11,13 @@ export const user: SpotifyApi.CurrentUsersProfileResponse = {
   href: "https://api.spotify.com/v1/users/user1",
   type: "user",
   uri: "spotify:user:user1",
+  images: [
+    {
+      url: "https://i.scdn.co/image/testimage",
+      height: 300,
+      width: 300,
+    },
+  ],
 };
 
 export const playlistMock: SpotifyApi.PlaylistObjectSimplified = {
