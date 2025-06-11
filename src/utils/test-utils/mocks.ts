@@ -43,7 +43,7 @@ const simplifiedPlaylistMock: SpotifyApi.PlaylistObjectSimplified = {
     external_urls: { spotify: "https://open.spotify.com/user/owner1" },
     followers: {
       href: "https://api.spotify.com/v1/users/owner1/followers",
-      total: 100,
+      total: 1625,
     },
     href: "https://api.spotify.com/v1/users/owner1",
     id: "owner1",
@@ -51,7 +51,7 @@ const simplifiedPlaylistMock: SpotifyApi.PlaylistObjectSimplified = {
     uri: "spotify:user:owner1",
   },
   public: true,
-  snapshot_id: "snapshot123",
+  snapshot_id: "123456789",
   type: "playlist",
   uri: "spotify:playlist:1",
 };
@@ -62,7 +62,7 @@ const singlePlaylistMock: SpotifyApi.SinglePlaylistResponse = {
   external_urls: { spotify: "https://open.spotify.com/playlist/1" },
   followers: {
     href: "https://api.spotify.com/v1/playlists/1/followers",
-    total: 100,
+    total: 1625,
   },
   href: "https://api.spotify.com/v1/playlists/1",
   id: "1",
@@ -79,7 +79,7 @@ const singlePlaylistMock: SpotifyApi.SinglePlaylistResponse = {
     external_urls: { spotify: "https://open.spotify.com/user/owner1" },
     followers: {
       href: "https://api.spotify.com/v1/users/owner1/followers",
-      total: 100,
+      total: 1625,
     },
     href: "https://api.spotify.com/v1/users/owner1",
     id: "owner1",
@@ -87,7 +87,7 @@ const singlePlaylistMock: SpotifyApi.SinglePlaylistResponse = {
     uri: "spotify:user:owner1",
   },
   public: true,
-  snapshot_id: "snapshot123",
+  snapshot_id: "123456789",
   tracks: {
     href: "https://api.spotify.com/v1/playlists/1/tracks",
     total: 10,

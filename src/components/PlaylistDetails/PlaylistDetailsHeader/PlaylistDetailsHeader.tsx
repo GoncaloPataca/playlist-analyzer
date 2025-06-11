@@ -53,36 +53,36 @@ export function PlaylistDetailsHeader({
                   {selectedPlaylist.description}
                 </p>
               )}
-              <div className="grid grid-cols-2 gap-x-8 gap-y-1 text-sm text-gray-600 mb-2">
-                <div>
+              <ul className="grid grid-cols-2 gap-x-8 gap-y-1 text-sm text-gray-600 mb-2 list-none p-0">
+                <li>
                   <span className="font-semibold">Owner:</span>{" "}
                   {selectedPlaylist.owner?.display_name}
-                </div>
-                <div>
+                </li>
+                <li>
                   <span className="font-semibold">Tracks:</span>{" "}
                   {formatNumber(selectedPlaylist.tracks?.total)}
-                </div>
-                <div>
+                </li>
+                <li>
                   <span className="font-semibold">Followers:</span>{" "}
                   {formatNumber(selectedPlaylist.followers?.total)}
-                </div>
-                <div>
+                </li>
+                <li>
                   <span className="font-semibold">Visibility:</span>{" "}
                   {selectedPlaylist.public ? "Public" : "Private"}
-                </div>
-                <div>
+                </li>
+                <li>
                   <span className="font-semibold">Collaborative:</span>{" "}
                   {selectedPlaylist.collaborative ? "Yes" : "No"}
-                </div>
+                </li>
                 {selectedPlaylist.snapshot_id && (
-                  <div>
+                  <li>
                     <span className="font-semibold">Snapshot ID:</span>{" "}
                     <span className="font-mono text-xs">
                       {selectedPlaylist.snapshot_id.slice(0, 8)}...
                     </span>
-                  </div>
+                  </li>
                 )}
-              </div>
+              </ul>
               <a
                 href={selectedPlaylist.external_urls?.spotify}
                 target="_blank"

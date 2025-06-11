@@ -1,4 +1,4 @@
-import { PlaylistDetailsHeader } from "@/components/PlaylistDetails/PlaylistDetailsHeader";
+import { PlaylistDetailsHeader } from "@/components/PlaylistDetails/PlaylistDetailsHeader/PlaylistDetailsHeader";
 import { TrackGrid } from "@/components/PlaylistDetails/TrackGrid";
 
 export function PlaylistDetails({

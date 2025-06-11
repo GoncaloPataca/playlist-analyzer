@@ -4,11 +4,16 @@ import { PlaylistDetails } from "./PlaylistDetails";
 import { renderWithProvider } from "@/utils/test-utils/test-utils";
 import { createSinglePlaylistMock } from "@/utils/test-utils/mocks";
 
-vi.mock(import("@/components/PlaylistDetails/PlaylistDetailsHeader"), () => ({
-  PlaylistDetailsHeader: () => (
-    <div data-testid="playlist-details-header">PlaylistDetailsHeader</div>
+vi.mock(
+  import(
+    "@/components/PlaylistDetails/PlaylistDetailsHeader/PlaylistDetailsHeader"
   ),
-}));
+  () => ({
+    PlaylistDetailsHeader: () => (
+      <div data-testid="playlist-details-header">PlaylistDetailsHeader</div>
+    ),
+  })
+);
 
 vi.mock(import("@/components/PlaylistDetails/TrackGrid"), () => ({
   TrackGrid: ({ playlistId }) => (
