@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PlaylistDetails } from "@/components/PlaylistDetails/PlaylistDetails";
 import { SidePanel } from "@/components/SidePanel/SidePanel";
 import { Navbar } from "@/components/Navbar/Navbar";
-import { PlaylistSearchForm } from "@/components/PlaylistDetails/PlaylistSearchForm";
+import { PlaylistSearchForm } from "@/components/PlaylistDetails/PlaylistSearchForm/PlaylistSearchForm";
 import { getPlaylistById } from "@/api/spotifyApi";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 
