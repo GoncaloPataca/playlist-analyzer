@@ -33,7 +33,7 @@ export function MainPage() {
           user={user}
         />
         <main id="main-content" className="flex-1 p-6 overflow-auto">
-          <h1 className="sr-only">Spotify Playlist Analyzer</h1>{" "}
+          <h1 className="sr-only">Spotify Playlist Analyzer</h1>
           <PlaylistSearchForm
             user={user}
             setSelectedPlaylistId={setSelectedPlaylistId}

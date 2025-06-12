@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { screen } from "@testing-library/dom";
-import { PlaylistDetails } from "./PlaylistDetails";
+import { PlaylistDetails } from "@/components/PlaylistDetails/PlaylistDetails";
 import { renderWithProvider } from "@/utils/test-utils/test-utils";
 import { createSinglePlaylistMock } from "@/utils/test-utils/mocks";
 
@@ -15,7 +15,7 @@ vi.mock(
   })
 );
 
-vi.mock(import("@/components/PlaylistDetails/TrackGrid"), () => ({
+vi.mock(import("@/components/PlaylistDetails/TrackGrid/TrackGrid"), () => ({
   TrackGrid: ({ playlistId }) => (
     <div data-testid="track-grid" data-playlist-id={playlistId}>
       TrackGrid

@@ -6,16 +6,9 @@ import {
 import { AgGridReact } from "ag-grid-react";
 import { useState, useRef, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  PopoverPanel,
-  Popover,
-  PopoverButton,
-  Field,
-  Label,
-} from "@headlessui/react";
-import { Switch } from "../ui/Switch/Switch";
-import { TRACK_COLS } from "../../constants/constants";
+import { TRACK_COLS } from "@/constants/constants";
 import { Button } from "@/components/ui/Button/Button";
+import { ColumnsMenu } from "@/components/PlaylistDetails/TrackGrid/ColumnsMenu";
 import { getPlaylistTracks } from "@/api/spotifyApi";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -52,7 +45,7 @@ const ALL_COLUMNS: ColDef<IRow>[] = [
   {
     field: TRACK_COLS.EXPLICIT,
     headerName: "Explicit",
-    valueFormatter: (params) => (params.value ? "Yes" : "No"),
+    valueGetter: (params) => (params.data?.explicit ? "Yes" : "No"),
   },
   { field: TRACK_COLS.ADDED_AT, headerName: "Added At" },
 ];
@@ -135,7 +128,6 @@ export function TrackGrid({
   const onFilterChanged = useCallback(() => {
     const api = gridRef.current?.api;
     if (api) {
-      console.log(api.isAnyFilterPresent());
       setIsFilterActive(api.isAnyFilterPresent());
     }
   }, []);
@@ -144,24 +136,11 @@ export function TrackGrid({
     <div className="w-full">
       <div className="mb-2 relative">
         <div className="flex items-center gap-3">
-          <Popover>
-            <PopoverButton as={Button}>Select Columns</PopoverButton>
-            <PopoverPanel
-              className="absolute z-10  bg-white border border-gray-300 rounded-lg shadow-md p-2 flex flex-col gap-2 min-w-[200px] ring-1 ring-black ring-opacity-5 focus:outline-none
-  "
-              anchor="bottom start"
-            >
-              {ALL_COLUMNS.map((col) => (
-                <Field key={col.field} className={"flex justify-between gap-6"}>
-                  <Label>{col.headerName}</Label>
-                  <Switch
-                    checked={visibleCols.includes(col.field as string)}
-                    onChange={() => handleToggleCol(col.field as string)}
-                  />
-                </Field>
-              ))}
-            </PopoverPanel>
-          </Popover>
+          <ColumnsMenu
+            allColumns={ALL_COLUMNS}
+            visibleCols={visibleCols}
+            onToggleColumn={handleToggleCol}
+          />
           <Button onClick={handleClearFilters} disabled={!isFilterActive}>
             Clear Filters
           </Button>
