@@ -4,7 +4,7 @@ import { CallbackPage } from "@/pages/CallbackPage";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/spotify-playlist-analyser">
       <Routes>
         <Route path="/callback" element={<CallbackPage />} />
         <Route path="/*" element={<MainPage />} />
