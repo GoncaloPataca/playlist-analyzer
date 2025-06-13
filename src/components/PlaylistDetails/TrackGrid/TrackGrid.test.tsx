@@ -20,17 +20,20 @@ vi.mock("spotify-web-api-js", () => {
   return mocks.SpotifyWebApiMock;
 });
 
-vi.mock("@/components/PlaylistDetails/ColumnsMenu", () => ({
-  ColumnsMenu: ({
-    onToggleColumn,
-  }: {
-    onToggleColumn: (field: string) => void;
-  }) => (
-    <button onClick={() => onToggleColumn("popularity")}>
-      Toggle Popularity
-    </button>
-  ),
-}));
+vi.mock(
+  import("@/components/PlaylistDetails/TrackGrid/ColumnsMenu/ColumnsMenu"),
+  () => ({
+    ColumnsMenu: ({
+      onToggleColumn,
+    }: {
+      onToggleColumn: (field: string) => void;
+    }) => (
+      <button onClick={() => onToggleColumn("popularity")}>
+        Toggle Popularity
+      </button>
+    ),
+  })
+);
 
 describe("TrackGrid", () => {
   const playlistId = "playlist123";

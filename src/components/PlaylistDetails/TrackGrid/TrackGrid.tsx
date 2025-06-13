@@ -8,7 +8,7 @@ import { useState, useRef, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { TRACK_COLS } from "@/constants/constants";
 import { Button } from "@/components/ui/Button/Button";
-import { ColumnsMenu } from "@/components/PlaylistDetails/TrackGrid/ColumnsMenu";
+import { ColumnsMenu } from "@/components/PlaylistDetails/TrackGrid/ColumnsMenu/ColumnsMenu";
 import { getPlaylistTracks } from "@/api/spotifyApi";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
