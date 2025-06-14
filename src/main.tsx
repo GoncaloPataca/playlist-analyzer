@@ -4,6 +4,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "@/index.css";
 import App from "@/App.tsx";
 
+if (/^#%2f/i.test(window.location.hash)) {
+  window.location.hash = decodeURIComponent(window.location.hash);
+}
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

@@ -6,7 +6,7 @@ function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="%2Fcallback" element={<CallbackPage />} />
+        <Route path="/callback" element={<CallbackPage />} />
         <Route path="/" element={<MainPage />} />
       </Routes>
     </HashRouter>
