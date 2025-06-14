@@ -8,7 +8,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), mkcert(), tsconfigPaths()],
-  base: "/spotify-playlist-analyser",
+  base: "/playlist-analyzer",
   server: {
     host: true,
   },

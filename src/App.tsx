@@ -1,15 +1,15 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { MainPage } from "@/pages/MainPage";
 import { CallbackPage } from "@/pages/CallbackPage";
 
 function App() {
   return (
-    <BrowserRouter basename="/spotify-playlist-analyser">
+    <HashRouter>
       <Routes>
-        <Route path="/callback" element={<CallbackPage />} />
-        <Route path="/*" element={<MainPage />} />
+        <Route path="%2Fcallback" element={<CallbackPage />} />
+        <Route path="/" element={<MainPage />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
