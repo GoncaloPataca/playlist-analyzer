@@ -6,10 +6,9 @@ export const setAccessToken = (token: string) => {
   spotifyApi.setAccessToken(token);
 };
 
-export const getCurrentUser =
-  async (): Promise<SpotifyApi.CurrentUsersProfileResponse | null> => {
-    return await spotifyApi.getMe();
-  };
+export const getCurrentUser = async () => {
+  return await spotifyApi.getMe();
+};
 
 export const getPlaylistTracks = async (playlistId: string) => {
   const data = await spotifyApi.getPlaylistTracks(playlistId);

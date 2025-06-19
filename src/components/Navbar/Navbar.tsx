@@ -5,7 +5,7 @@ import { SignOutButton } from "@/components/Navbar/SignOutButton/SignOutButton";
 export function Navbar({
   user,
 }: Readonly<{
-  user: SpotifyApi.CurrentUsersProfileResponse | null;
+  user: SpotifyApi.CurrentUsersProfileResponse | undefined;
 }>) {
   const isLoggedIn = user !== null;
 

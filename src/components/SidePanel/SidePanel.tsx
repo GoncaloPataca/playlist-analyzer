@@ -9,7 +9,7 @@ export function SidePanel({
 }: Readonly<{
   selectedPlaylistId: string | null;
   setSelectedPlaylistId: (playlistId: string) => void;
-  user: SpotifyApi.CurrentUsersProfileResponse | null;
+  user: SpotifyApi.CurrentUsersProfileResponse | undefined;
 }>) {
   const loggedIn = user !== null;
 

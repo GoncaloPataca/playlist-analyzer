@@ -1,27 +1,21 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { PlaylistDetails } from "@/components/PlaylistDetails/PlaylistDetails";
 import { SidePanel } from "@/components/SidePanel/SidePanel";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { PlaylistSearchForm } from "@/components/PlaylistDetails/PlaylistSearchForm/PlaylistSearchForm";
-import { getPlaylistById } from "@/api/spotifyApi";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { usePlaylist } from "@/hooks/usePlaylist";
 
 export function MainPage() {
+  console.log("Rendering main");
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | null>(
     null
   );
 
-  const { data: selectedPlaylist, isFetching } = useQuery({
-    queryKey: ["playlist", selectedPlaylistId],
-    queryFn: () =>
-      selectedPlaylistId
-        ? getPlaylistById(selectedPlaylistId)
-        : Promise.resolve(null),
-    enabled: !!selectedPlaylistId,
-  });
+  const { data: selectedPlaylist, isFetching } =
+    usePlaylist(selectedPlaylistId);
 
-  const user = useCurrentUser();
+  const { data: user } = useCurrentUser();
 
   return (
     <div className="flex flex-col h-screen w-screen">

@@ -12,7 +12,7 @@ export function PlaylistSearchForm({
   user,
 }: Readonly<{
   setSelectedPlaylistId: (playlistId: string) => void;
-  user: SpotifyApi.CurrentUsersProfileResponse | null;
+  user: SpotifyApi.CurrentUsersProfileResponse | undefined;
 }>) {
   const {
     register,
