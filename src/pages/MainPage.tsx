@@ -1,20 +1,28 @@
 import { useState } from "react";
+import { useLocalStorage } from "react-use";
 import { PlaylistDetails } from "@/components/PlaylistDetails/PlaylistDetails";
 import { SidePanel } from "@/components/SidePanel/SidePanel";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { PlaylistSearchForm } from "@/components/PlaylistDetails/PlaylistSearchForm/PlaylistSearchForm";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { usePlaylist } from "@/hooks/usePlaylist";
+import { ACCESS_TOKEN_KEY } from "@/constants/storageKeys";
+import { setAccessToken } from "@/api/spotifyApi";
 
 export function MainPage() {
+  const [token, setToken] = useLocalStorage(ACCESS_TOKEN_KEY, undefined);
+  if (token) setAccessToken(token);
+
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | null>(
     null
   );
 
-  const { data: selectedPlaylist, isFetching } =
-    usePlaylist(selectedPlaylistId);
+  const { data: selectedPlaylist, isFetching } = usePlaylist(
+    selectedPlaylistId,
+    token
+  );
 
-  const { data: user } = useCurrentUser();
+  const { data: user } = useCurrentUser(token);
 
   return (
     <div className="flex flex-col h-screen w-screen">

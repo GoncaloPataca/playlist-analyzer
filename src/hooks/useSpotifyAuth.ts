@@ -1,6 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "react-use";
 import { setAccessToken } from "@/api/spotifyApi";
+import { ACCESS_TOKEN_KEY } from "@/constants/storageKeys";
 
 async function exchangeSpotifyToken(code: string, verifier: string) {
   const response = await fetch("https://accounts.spotify.com/api/token", {
@@ -20,10 +22,12 @@ async function exchangeSpotifyToken(code: string, verifier: string) {
 
 export function useSpotifyAuth() {
   const navigate = useNavigate();
+  const [, setToken] = useLocalStorage(ACCESS_TOKEN_KEY, undefined);
   return useMutation({
     mutationFn: ({ code, verifier }: { code: string; verifier: string }) =>
       exchangeSpotifyToken(code, verifier),
     onSuccess: (data) => {
+      setToken(data.access_token);
       setAccessToken(data.access_token);
       localStorage.removeItem("code_verifier");
       navigate("/");
