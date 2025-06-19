@@ -7,7 +7,6 @@ import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { usePlaylist } from "@/hooks/usePlaylist";
 
 export function MainPage() {
-  console.log("Rendering main");
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | null>(
     null
   );

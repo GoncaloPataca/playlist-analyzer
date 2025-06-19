@@ -1,6 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { getUserPlaylists } from "@/api/spotifyApi";
 import { PlaylistCard } from "@/components/SidePanel/PlaylistCard/PlaylistCard";
+import { useUserPlaylists } from "@/hooks/useUserPlaylists";
 
 export function SidePanel({
   selectedPlaylistId,
@@ -13,12 +12,7 @@ export function SidePanel({
 }>) {
   const loggedIn = user !== null;
 
-  const { data: playlists = [], isLoading } = useQuery({
-    queryKey: ["userPlaylists", user?.id],
-    queryFn: getUserPlaylists,
-    enabled: loggedIn,
-    staleTime: 1000 * 60 * 5,
-  });
+  const { data: playlists = [], isLoading } = useUserPlaylists(user);
 
   return (
     <aside className="w-64 bg-gray-200 dark:bg-gray-800 p-4 border-r border-gray-300 dark:border-gray-700">
