@@ -5,11 +5,10 @@ import {
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import { useState, useRef, useMemo, useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { TRACK_COLS } from "@/constants/constants";
 import { Button } from "@/components/ui/Button/Button";
 import { ColumnsMenu } from "@/components/PlaylistDetails/TrackGrid/ColumnsMenu/ColumnsMenu";
-import { getPlaylistTracks } from "@/api/spotifyApi";
+import { usePlaylistTracks } from "@/hooks/usePlaylistTracks";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -65,28 +64,7 @@ export function TrackGrid({
   const gridRef = useRef<AgGridReact>(null);
   const [isFilterActive, setIsFilterActive] = useState(false);
 
-  const { data: rowData = [], isLoading } = useQuery({
-    queryKey: ["playlistTracks", playlistId],
-    queryFn: async () => {
-      if (!playlistId) return [];
-      const playlistTracks = await getPlaylistTracks(playlistId);
-      return playlistTracks
-        .filter((playlistTrackItem) => playlistTrackItem.track)
-        .map((playlistTrackItem) => {
-          const track = playlistTrackItem.track as SpotifyApi.TrackObjectFull;
-          return {
-            name: track.name,
-            artist: track.artists?.map((a) => a.name).join(", "),
-            album: track.album?.name,
-            duration_ms: track.duration_ms,
-            popularity: track.popularity,
-            explicit: track.explicit,
-            added_at: playlistTrackItem.added_at,
-          };
-        });
-    },
-    enabled: !!playlistId,
-  });
+  const { data: rowData = [], isLoading } = usePlaylistTracks(playlistId);
 
   const colDefs = ALL_COLUMNS.filter((col) =>
     visibleCols.includes(col.field as string)
