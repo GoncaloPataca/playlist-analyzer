@@ -42,7 +42,7 @@ describe("PlaylistSearchForm", () => {
     const { getByRole, getByText, getByLabelText } = renderWithProvider(
       <PlaylistSearchForm
         setSelectedPlaylistId={setSelectedPlaylistId}
-        user={null}
+        user={undefined}
       />
     );
     await userEvent.type(

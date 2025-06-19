@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { CODE_VERIFIER_KEY } from "@/constants/storageKeys";
 
 function base64urlEncode(buffer: ArrayBuffer): string {
@@ -20,7 +21,9 @@ async function generateCodeChallenge(verifier: string): Promise<string> {
 }
 
 export function useSpotifyLogin() {
-  const login = async () => {
+  const [loginUrl, setLoginUrl] = useState<string>();
+
+  const getLoginUrl = async () => {
     const codeVerifier = generateCodeVerifier();
     const codeChallenge = await generateCodeChallenge(codeVerifier);
     localStorage.setItem(CODE_VERIFIER_KEY, codeVerifier);
@@ -34,8 +37,12 @@ export function useSpotifyLogin() {
       scope: "user-read-private user-read-email playlist-read-private",
     });
 
-    window.location.href = `https://accounts.spotify.com/authorize?${params.toString()}`;
+    setLoginUrl(`https://accounts.spotify.com/authorize?${params.toString()}`);
   };
 
-  return { login };
+  useEffect(() => {
+    getLoginUrl();
+  }, []);
+
+  return { loginUrl };
 }

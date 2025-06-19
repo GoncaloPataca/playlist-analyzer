@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { Navbar } from "./Navbar";
+import { Navbar } from "@/components/Navbar/Navbar";
 import { createUserMock } from "@/utils/test-utils/mocks";
 import { renderWithProvider } from "@/utils/test-utils/test-utils";
 
-vi.mock(import("@/components/Navbar/LoginButton/LoginButton"), () => ({
+vi.mock(import("@/components/Navbar/LoginLinkButton/LoginLinkButton"), () => ({
   LoginButton: () => <button data-testid="login-button">Login</button>,
 }));
 
@@ -19,13 +19,13 @@ describe("Navbar", () => {
   });
 
   it("renders the title", () => {
-    const { getByText } = renderWithProvider(<Navbar user={null} />);
+    const { getByText } = renderWithProvider(<Navbar user={undefined} />);
 
     expect(getByText(/playlist analyzer/i)).toBeInTheDocument();
   });
 
   it("renders a skip to main content button for screen readers", () => {
-    const { getByText } = renderWithProvider(<Navbar user={null} />);
+    const { getByText } = renderWithProvider(<Navbar user={undefined} />);
     const skipBtn = getByText(/skip to main content/i);
 
     expect(skipBtn).toBeInTheDocument();
@@ -33,7 +33,7 @@ describe("Navbar", () => {
   });
 
   it("renders a login button if user is logged off", () => {
-    const { getByTestId } = renderWithProvider(<Navbar user={null} />);
+    const { getByTestId } = renderWithProvider(<Navbar user={undefined} />);
 
     expect(getByTestId("login-button")).toBeInTheDocument();
   });

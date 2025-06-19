@@ -15,12 +15,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
+a:not(.button-link) {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
-a:hover {
+a:not(.button-link):hover {
   color: #535bf2;
 }
 
@@ -42,7 +42,7 @@ h1 {
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
+  a:not(.button-link):hover {
     color: #747bff;
   }
 }
