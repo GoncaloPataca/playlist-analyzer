@@ -56,7 +56,7 @@ describe("SidePanel", () => {
       <SidePanel
         selectedPlaylistId={null}
         setSelectedPlaylistId={setSelectedPlaylistId}
-        user={null}
+        user={undefined}
       />
     );
     expect(
@@ -69,7 +69,7 @@ describe("SidePanel", () => {
       <SidePanel
         selectedPlaylistId={null}
         setSelectedPlaylistId={setSelectedPlaylistId}
-        user={null}
+        user={undefined}
       />
     );
     expect(mocks.getUserPlaylists).not.toHaveBeenCalled();

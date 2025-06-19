@@ -4,7 +4,7 @@ import { getUserPlaylists } from "@/api/spotifyApi";
 export const useUserPlaylists = (
   user: SpotifyApi.CurrentUsersProfileResponse | undefined
 ) => {
-  const loggedIn = user !== null;
+  const loggedIn = user !== undefined;
 
   return useQuery({
     queryKey: ["userPlaylists", user?.id],

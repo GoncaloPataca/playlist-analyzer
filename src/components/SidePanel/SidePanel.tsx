@@ -10,7 +10,7 @@ export function SidePanel({
   setSelectedPlaylistId: (playlistId: string) => void;
   user: SpotifyApi.CurrentUsersProfileResponse | undefined;
 }>) {
-  const loggedIn = user !== null;
+  const loggedIn = user !== undefined;
 
   const { data: playlists = [], isLoading } = useUserPlaylists(user);
 
