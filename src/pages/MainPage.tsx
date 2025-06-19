@@ -10,7 +10,7 @@ import { ACCESS_TOKEN_KEY } from "@/constants/storageKeys";
 import { setAccessToken } from "@/api/spotifyApi";
 
 export function MainPage() {
-  const [token, setToken] = useLocalStorage(ACCESS_TOKEN_KEY, undefined);
+  const [token] = useLocalStorage(ACCESS_TOKEN_KEY, undefined);
   if (token) setAccessToken(token);
 
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | null>(

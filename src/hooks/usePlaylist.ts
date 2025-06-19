@@ -3,7 +3,7 @@ import { getPlaylistById } from "@/api/spotifyApi";
 
 export const usePlaylist = (
   selectedPlaylistId: string | null,
-  token: boolean
+  token: string | undefined
 ) =>
   useQuery({
     queryKey: ["playlist", selectedPlaylistId],
